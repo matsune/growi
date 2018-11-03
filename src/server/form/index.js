@@ -14,6 +14,7 @@ module.exports = {
     app: require('./admin/app'),
     mail: require('./admin/mail'),
     aws: require('./admin/aws'),
+    swift: require('./admin/swift'),
     importerEsa: require('./admin/importerEsa'),
     importerQiita: require('./admin/importerQiita'),
     plugin: require('./admin/plugin'),
