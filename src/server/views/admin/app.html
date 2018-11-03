@@ -186,6 +186,49 @@
       </fieldset>
       </form>
 
+      <form action="/_api/admin/settings/swift" method="post" class="form-horizontal" id="swiftSettingForm" role="form">
+      <fieldset>
+      <legend>{{ t('app_setting.Swift settings') }}</legend>
+        <p class="well">{{ t("app_setting.Swift_access") }}</p>
+
+        <div class="form-group">
+          <label for="settingForm[swift:url]" class="col-xs-3 control-label">{{ t('app_setting.URL') }}</label>
+          <div class="col-xs-6">
+            <input class="form-control" type="text" name="settingForm[swift:url]" placeholder="例: https://identity.tyo1.conoha.io/v2.0" value="{{ settingForm['swift:url'] }}">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="settingForm[swift:tenantName]" class="col-xs-3 control-label">{{ t('app_setting.Tenant name') }}</label>
+          <div class="col-xs-6">
+            <input class="form-control" type="text" name="settingForm[swift:tenantName]" placeholder="例: crowi-tenant"  value="{{ settingForm['swift:tenantName'] }}">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="settingForm[swift:user]" class="col-xs-3 control-label">{{ t('app_setting.User') }}</label>
+          <div class="col-xs-6">
+            <input class="form-control" type="text" name="settingForm[swift:user]" placeholder="例: crowi"  value="{{ settingForm['swift:user'] }}">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="settingForm[swift:password]" class="col-xs-3 control-label">{{ t('app_setting.Password') }}</label>
+          <div class="col-xs-6">
+            <input class="form-control" type="text" name="settingForm[swift:password]" value="{{ settingForm['swift:password'] }}">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-xs-offset-3 col-xs-6">
+            <input type="hidden" name="_csrf" value="{{ csrf() }}">
+            <button type="submit" class="btn btn-primary">{{ t('app_setting.Update') }}</button>
+          </div>
+        </div>
+
+      </fieldset>
+      </form>
+
       <form action="/_api/admin/settings/plugin" method="post" class="form-horizontal" id="pluginSettingForm" role="form">
       <fieldset>
       <legend>{{ t('app_setting.Plugin settings') }}</legend>
@@ -222,7 +265,7 @@
   </div>
 
   <script>
-    $('#appSettingForm, #mailSettingForm, #awsSettingForm, #pluginSettingForm').each(function() {
+    $('#appSettingForm, #mailSettingForm, #awsSettingForm, #swiftSettingForm, #pluginSettingForm').each(function() {
       $(this).submit(function()
       {
         function showMessage(formId, msg, status) {
