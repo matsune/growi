@@ -89,6 +89,8 @@ Crowi.prototype.init = function() {
     }).then(function() {
       return self.setupSlack();
     }).then(function() {
+      return self.setupSwift();
+    }).then(function() {
       return self.setupCsrf();
     }).then(function() {
       return self.setUpGlobalNotification();
@@ -332,6 +334,25 @@ Crowi.prototype.setupSlack = function() {
       self.slack = require('../util/slack')(self);
     }
 
+    resolve();
+  });
+};
+
+Crowi.prototype.setupSwift = function() {
+  var self = this;
+
+  return new Promise(function(resolve, reject) {
+    if (process.env.FILE_UPLOAD == 'swift') {
+      require('../service/file-uploader/swift')(self).client()
+        .then(client => {
+          self.swift = client;
+        }).catch(err => {
+          self.swift = {};
+        })
+    }
+    else {
+      self.swift = {};
+    }
     resolve();
   });
 };

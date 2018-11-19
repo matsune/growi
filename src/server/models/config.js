@@ -83,10 +83,14 @@ module.exports = function(crowi) {
       'aws:accessKeyId'     : '',
       'aws:secretAccessKey' : '',
 
-      'swift:url'         : '',
-      'swift:tenantName'  : '',
+      'swift:authUrl'     : '',
       'swift:user'        : '',
       'swift:password'    : '',
+      'swift:container'   : '',
+      'swift:domain'      : '',
+      'swift:domainId'    : '',
+      'swift:tenant'      : '',
+      'swift:tenantId'    : '',
 
       'mail:from'         : '',
       'mail:smtpHost'     : '',

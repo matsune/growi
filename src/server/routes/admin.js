@@ -1036,6 +1036,21 @@ module.exports = function(crowi, app) {
           return saveSetting(req, res, form);
         });
       }
+      else if (form['swift:authUrl'] || form['swift:user'] || form['swift:password']
+      || form['swift:container'] || form['swift:domain'] || form['swift:domainId']
+      || form['swift:tenant'] || form['swift:tenantId']) {
+        let data = {
+          authUrl: form['swift:authUrl'],
+          userName: form['swift:user'],
+          apiKey: form['swift:password'],
+          domain: form['swift:domain'],
+          domainId: form['swift:domainId'],
+          tenant: form['swift:tenant'],
+          tenantId: form['swift:tenantId'],
+        }
+        crowi.swift = require("../service/file-uploader/swift")(crowi).createClient(data);
+        return saveSetting(req, res, form);
+      }
       else {
         return saveSetting(req, res, form);
       }
