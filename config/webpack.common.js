@@ -20,6 +20,7 @@ module.exports = (options) => {
     mode: options.mode,
     entry: Object.assign({
       'js/app':                       './src/client/js/app',
+      'js/installer':                 './src/client/js/installer',
       'js/legacy':                    './src/client/js/legacy/crowi',
       'js/legacy-admin':              './src/client/js/legacy/crowi-admin',
       'js/legacy-presentation':       './src/client/js/legacy/crowi-presentation',
@@ -58,7 +59,7 @@ module.exports = (options) => {
     },
     resolve: {
       extensions: ['.js', '.jsx', '.json'],
-      modules: [helpers.root('node_modules')],
+      modules: ((options.resolve && options.resolve.modules) || []).concat([helpers.root('node_modules')]),
       alias: {
         '@root': helpers.root('/'),
         '@commons': helpers.root('src/lib'),

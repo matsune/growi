@@ -1,13 +1,31 @@
 CHANGES
 ========
 
-## 3.2.7-RC
+## 3.2.9-RC
+
+* 
+
+## 3.2.8
+
+* Improvement: Add an option to use email for account link when using SAML federation
+* Fix: Editor layout is sometimes broken
+* Fix: Normalize table data for Spreadsheet like GUI (Handsontable) when import
+* Support: Improve development environment
+* Support: Upgrade libs
+    * googleapis
+    * react-dropzone
+
+## 3.2.7
 
 * Feature: Import CSV/TSV/HTML table on Spreadsheet like GUI (Handsontable)
+* Fix: Pasting table data copied from Excel includes unnecessary line breaks
+* Fix: Page break Preset 1 for Presentation mode is broken
+* Fix: Login Form when LDAP login failed caused 500 Internal Server Error
 
 ## 3.2.6
 
 * Feature: Add select alignment buttons of Spreadsheet like GUI (Handsontable)
+* Improvement: Shrink the rows that have no diff of revision history page
 * Fix: Login form rejects weak password
 * Fix: An error occured by uploading attachment file when the page is not exists
     * Introduced by 2.3.5
