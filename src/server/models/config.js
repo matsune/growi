@@ -53,12 +53,15 @@ module.exports = function(crowi) {
       'app:confidential'  : '',
 
       'app:fileUpload'    : false,
-      'app:globalLang'    : 'en',
+      'app:globalLang'    : 'en-US',
 
       'security:restrictGuestMode'      : 'Deny',
 
       'security:registrationMode'      : 'Open',
       'security:registrationWhiteList' : [],
+
+      'security:list-policy:hideRestrictedByOwner' : false,
+      'security:list-policy:hideRestrictedByGroup' : false,
 
       'security:isEnabledPassport' : false,
       'security:passport-ldap:isEnabled' : false,
@@ -158,6 +161,20 @@ module.exports = function(crowi) {
     return config.markdown[key];
   }
 
+  /**
+   * It is deprecated to use this for anything other than ConfigLoader#load.
+   */
+  configSchema.statics.getDefaultCrowiConfigsObject = function() {
+    return getDefaultCrowiConfigs();
+  };
+
+  /**
+   * It is deprecated to use this for anything other than ConfigLoader#load.
+   */
+  configSchema.statics.getDefaultMarkdownConfigsObject = function() {
+    return getDefaultMarkdownConfigs();
+  };
+
   configSchema.statics.getRestrictGuestModeLabels = function() {
     var labels = {};
     labels[SECURITY_RESTRICT_GUEST_MODE_DENY]     = 'security_setting.guest_mode.deny';
@@ -209,7 +226,7 @@ module.exports = function(crowi) {
     });
   };
 
-  configSchema.statics.setupCofigFormData = function(ns, config) {
+  configSchema.statics.setupConfigFormData = function(ns, config) {
     var defaultConfig = {};
 
     // set Default Settings
@@ -358,7 +375,7 @@ module.exports = function(crowi) {
     return method != 'none';
   };
 
-  configSchema.statics.isGuesstAllowedToRead = function(config) {
+  configSchema.statics.isGuestAllowedToRead = function(config) {
     // return true if puclic wiki mode
     if (Config.isPublicWikiOnly(config)) {
       return true;
@@ -370,6 +387,16 @@ module.exports = function(crowi) {
     }
 
     return SECURITY_RESTRICT_GUEST_MODE_READONLY === config.crowi['security:restrictGuestMode'];
+  };
+
+  configSchema.statics.hidePagesRestrictedByOwnerInList = function(config) {
+    const key = 'security:list-policy:hideRestrictedByOwner';
+    return getValueForCrowiNS(config, key);
+  };
+
+  configSchema.statics.hidePagesRestrictedByGroupInList = function(config) {
+    const key = 'security:list-policy:hideRestrictedByGroup';
+    return getValueForCrowiNS(config, key);
   };
 
   configSchema.statics.isEnabledPlugins = function(config) {
@@ -623,6 +650,7 @@ module.exports = function(crowi) {
         BLOCKDIAG_URI: env.BLOCKDIAG_URI || null,
         HACKMD_URI: env.HACKMD_URI || null,
         MATHJAX: env.MATHJAX || null,
+        NO_CDN: env.NO_CDN || null,
       },
       recentCreatedLimit: Config.showRecentCreatedNumber(config),
       isAclEnabled: !Config.isPublicWikiOnly(config),

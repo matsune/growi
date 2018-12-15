@@ -5,6 +5,7 @@ const debug = require('debug')('growi:crowi')
   , logger = require('@alias/logger')('growi:crowi')
   , pkg = require('@root/package.json')
   , InterceptorManager = require('@commons/service/interceptor-manager')
+  , CdnResourcesService = require('@commons/service/cdn-resources-service')
   , Xss = require('@commons/service/xss')
   , path = require('path')
   , sep = path.sep
@@ -33,11 +34,13 @@ function Crowi(rootdir) {
   this.cacheDir    = path.join(this.tmpDir, 'cache');
 
   this.config = {};
+  this.configManager = null;
   this.searcher = null;
   this.mailer = {};
   this.passportService = null;
   this.globalNotificationService = null;
   this.restQiitaAPIService = null;
+  this.cdnResourcesService = new CdnResourcesService();
   this.interceptorManager = new InterceptorManager();
   this.xss = new Xss();
 
@@ -53,6 +56,8 @@ function Crowi(rootdir) {
   this.events = {
     user: new (require(self.eventsDir + 'user'))(this),
     page: new (require(self.eventsDir + 'page'))(this),
+    search: new (require(self.eventsDir + 'search'))(this),
+    bookmark: new (require(self.eventsDir + 'bookmark'))(this),
   };
 
 }
@@ -65,38 +70,24 @@ function getMongoUrl(env) {
     ((process.env.NODE_ENV === 'test') ? 'mongodb://localhost/growi_test' : 'mongodb://localhost/growi');
 }
 
-Crowi.prototype.init = function() {
-  var self = this;
+Crowi.prototype.init = async function() {
+  await this.setupDatabase();
+  await this.setupModels();
+  await this.setupSessionConfig();
+  await this.setupAppConfig();
+  await this.setupConfigManager();
 
-  return Promise.resolve()
-    .then(function() {
-      // setup database server and load all modesl
-      return self.setupDatabase();
-    }).then(function() {
-      return self.setupModels();
-    }).then(function() {
-      return self.setupSessionConfig();
-    }).then(function() {
-      return self.setupAppConfig();
-    }).then(function() {
-      return self.scanRuntimeVersions();
-    }).then(function() {
-      return self.setupPassport();
-    }).then(function() {
-      return self.setupSearcher();
-    }).then(function() {
-      return self.setupMailer();
-    }).then(function() {
-      return self.setupSlack();
-    }).then(function() {
-      return self.setupSwift();
-    }).then(function() {
-      return self.setupCsrf();
-    }).then(function() {
-      return self.setUpGlobalNotification();
-    }).then(function() {
-      return self.setUpRestQiitaAPI();
-    });
+  await Promise.all([
+    this.scanRuntimeVersions(),
+    this.setupPassport(),
+    this.setupSearcher(),
+    this.setupMailer(),
+    this.setupSlack(),
+    this.setupSwift(),
+    this.setupCsrf(),
+    this.setUpGlobalNotification(),
+    this.setUpRestQiitaAPI(),
+  ]);
 };
 
 Crowi.prototype.isPageId = function(pageId) {
@@ -205,6 +196,12 @@ Crowi.prototype.setupAppConfig = function() {
       return resolve();
     });
   });
+};
+
+Crowi.prototype.setupConfigManager = async function() {
+  const ConfigManager = require('../service/config-manager');
+  this.configManager = new ConfigManager(this.model('Config'));
+  return await this.configManager.loadConfigs();
 };
 
 Crowi.prototype.setupModels = function() {

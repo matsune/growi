@@ -1,9 +1,37 @@
 CHANGES
 ========
 
-## 3.2.9-RC
+## 3.3.0-RC
 
-* 
+* Feature: NO_CDN Mode
+* Feature: Add option to show/hide restricted pages in list
+* Feature: MongoDB GridFS quota
+* Improvement: Refactor Access Control
+* Improvement: Checkbox behavior of task list
+* Improvement: Fixed search input on search result page
+* Improvement: Add 'christmas' theme
+* Improvement: Select default language of new users
+* Fix: Hide restricted pages contents in timeline
+* Support: Upgrade libs
+    * googleapis
+    * passport-saml
+
+## 3.2.10
+
+* Fix: Pages in trash are available to create
+* Fix: Couldn't create portal page under Crowi Classic Behavior
+* Fix: Table tag in Timeline/SearchResult missed border and BS3 styles
+* I18n: Installer
+
+
+## 3.2.9
+
+* Feature: Attachment Storing to MongoDB GridFS
+* Fix: row/col moving of Spreadsheet like GUI (Handsontable) doesn't work
+* Fix: Emoji AutoComplete dialog pops up at wrong position
+* Support: Upgrade libs
+    * codemirror
+    * react-codemirror2
 
 ## 3.2.8
 

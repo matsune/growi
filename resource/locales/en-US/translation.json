@@ -101,6 +101,13 @@
   "Deleted Pages": "Deleted Pages",
   "Sign out": "Logout",
 
+  "installer": {
+    "setup": "Setup",
+    "create_initial_account": "Create an initial account",
+    "initial_account_will_be_administrator_automatically": "The initial account will be administrator automatically.",
+    "unavaliable_user_id": "This 'User ID' is unavailable."
+  },
+
   "page_register": {
     "notice": {
       "restricted": "Admin approval required.",
@@ -167,6 +174,12 @@
       }
   },
 
+  "page_api_error": {
+    "notfound_or_forbidden": "Original page is not found or forbidden.",
+    "already_exists": "New page is already exists.",
+    "outdated": "Page is updated someone and now outdated. "
+  },
+
   "modal_rename": {
     "label": {
       "Rename page": "Rename page",
@@ -187,8 +200,12 @@
   "modal_delete": {
     "label": {
       "Delete Page": "Delete Page",
-      "recursively": "Process recursively",
-      "completely": "Delete completely"
+      "Delete recursively": "Delete recursively",
+      "Delete completely": "Delete completely"
+    },
+    "help": {
+      "recursively": "Delete children of under <code>%s</code> recursively",
+      "completely": "Delete completely instead of putting it into trash"
     }
   },
 
@@ -200,10 +217,13 @@
     }
   },
 
-  "modal_putBack": {
+  "modal_putback": {
     "label": {
       "Put Back Page": "Put Back Page",
-      "recursively": "Process recursively"
+      "recursively": "Put Back recursively"
+    },
+    "help": {
+      "recursively": "Put Back children of under <code>%s</code> recursively"
     }
   },
 
@@ -307,7 +327,12 @@
     "restrict_emails": "You can restrict registerable e-mail address.",
 		"for_instance": " For instance, if you use growi within a company, you can write ",
 		"only_those": " Only those whose e-mail address including the company address can register.",
-		"insert_single": "Please insert single e-mail address per line.",
+    "insert_single": "Please insert single e-mail address per line.",
+    "page_listing_1": "Page listing<br>restricted by 'Just Me'",
+    "page_listing_1_desc": "Show pages that are restricted by 'Just Me' option when listing",
+    "page_listing_2": "Page listing<br>restricted by User Group",
+    "page_listing_2_desc": "Show pages that are restricted by User Group when listing",
+
 		"Authentication mechanism settings": "Authentication mechanism settings",
     "note": "Note",
     "require_server_restart_change_auth": "Restarting the server is required if you switch the auth mechanism.",
@@ -497,6 +522,7 @@
     "tab_switch": "Save tab-switching in the browser",
     "save_edit": "Save edit tab and history tab switching in the browser and make it object for forward/back command of the browser.",
     "by_invalidating": "By invalidating, you can make page transition as the only object for forward/back command of the browser.",
+    "nocdn_desc": "This function is disabled when the environment variable <code>NO_CDN=true</code>.<br>Github style has been forcibly applied.",
     "Custom CSS": "Custom CSS",
     "write_CSS": "You can write CSS that is applied to whole system.",
     "reflect_change": "You need to reload the page to reflect the change.",
@@ -505,8 +531,8 @@
     "write_java": "You can write Javascript that is applied to whole system.",
     "attach_title_header": "Add h1 section when create new page automatically",
     "attach_title_header_desc": "Add page path to the first line as h1 section when create new page",
-    "show_document_number": "Manage the number of documents to be displayed",
-    "show_document_number_desc": "Set the number of items to display on one page in Recent Created on the home screen"
+    "recent_created_page_num": "Recent Created Paging num",
+    "recent_created_page_num_desc": "The number of pages to show in Recent Created Page List on the user's home"
   },
 
   "user_management": {
