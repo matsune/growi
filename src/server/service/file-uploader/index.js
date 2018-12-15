@@ -3,6 +3,7 @@ const envToModuleMappings = {
   local:   'local',
   none:    'none',
   mongodb: 'gridfs',
+  swift:   'swift'
 };
 
 class FileUploaderFactory {

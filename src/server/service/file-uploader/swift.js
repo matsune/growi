@@ -42,7 +42,6 @@ module.exports = function(crowi) {
   lib.uploadFile = function(filePath, contentType, fileStream, options) {
     let config = crowi.getConfig()
     let container = config.crowi['swift:container']
-    console.log(crowi.swift);
     return new Promise(function(resolve, reject) {
       crowi.swift
         .Container(container)
@@ -56,6 +55,10 @@ module.exports = function(crowi) {
     let config = crowi.getConfig()
     let container = config.crowi['swift:container']
     return crowi.swift.Container(container).Object(filePath).url()
+  };
+
+  lib.checkCapacity = async(uploadFileSize) => {
+    return true;
   };
 
   return lib;
